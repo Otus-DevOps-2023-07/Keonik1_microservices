@@ -3,7 +3,8 @@ services:
   post_db:
     image: ${DB_IMAGE}
     volumes:
-      - ${DB_DATA_PATH}:/data/db
+      # - ${DB_DATA_PATH}:/data/db
+      - post_db:/data/db
     networks:
       reddit_back:
         aliases:
@@ -43,3 +44,6 @@ services:
 networks:
   reddit_front:
   reddit_back:
+
+volumes:
+  post_db:
