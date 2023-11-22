@@ -29,3 +29,16 @@ docker run -d --network=reddit --network-alias=post post:1.0
 docker run -d --network=reddit --network-alias=comment comment:1.0
 docker run -d --network=reddit -p 9292:9292 ui:1.0
 ```
+
+# ДЗ 15
+## Изменение имени проекта
+Имя проекта можно изменить указав при запуске параметр `-p <name>` или указав в переменной `COMPOSE_PROJECT_NAME` имя проекта. Переменную можно поместить в файл `.env`.
+## Работы выполненные во время ДЗ
+- Добавлен файл `docker-compose.yml`, который содержит конфигурацию для запуска Reddit
+- Добавлен файл `.env.example`, в котором хранится пример изменяемых данных для запуска приложения.
+
+## Для запуска сервиса выполнить команды:
+```bash
+cd src
+docker-compose up -d
+```
