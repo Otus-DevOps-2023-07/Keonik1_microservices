@@ -42,3 +42,8 @@ docker run -d --network=reddit -p 9292:9292 ui:1.0
 cd src
 docker-compose up -d
 ```
+
+
+# ДЗ 15
+- Был поднят инстанс gitlab в докере через `docker-compose`
+- Добавлен gitlab-ci пайплайн для reddit приложения
