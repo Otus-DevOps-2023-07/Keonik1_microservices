@@ -1,0 +1,49 @@
+version: '3.3'
+services:
+  post_db:
+    image: ${DB_IMAGE}
+    volumes:
+      # - ${DB_DATA_PATH}:/data/db
+      - post_db:/data/db
+    networks:
+      reddit_back:
+        aliases:
+          - post_db
+          - comment_db
+  ui:
+    build: ./ui
+    image: ${UI_IMAGE}
+    ports:
+      # - "${UI_EXTERNAL_PORT}:9292/tcp"
+      - "9292:9292"
+    networks:
+      reddit_front:
+        aliases:
+          - ui
+  post:
+    build: ./post-py
+    image: ${POST_IMAGE}
+    networks:
+      reddit_back:
+        aliases:
+          - post
+      reddit_front:
+        aliases:
+          - post
+  comment:
+    build: ./comment
+    image: ${COMMENT_IMAGE}
+    networks:
+      reddit_back:
+        aliases:
+          - comment
+      reddit_front:
+        aliases:
+          - comment
+
+networks:
+  reddit_front:
+  reddit_back:
+
+volumes:
+  post_db:
