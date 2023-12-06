@@ -44,6 +44,13 @@ docker-compose up -d
 ```
 
 
-# ДЗ 15
+# ДЗ 16
 - Был поднят инстанс gitlab в докере через `docker-compose`
 - Добавлен gitlab-ci пайплайн для reddit приложения
+
+# ДЗ 17
+Ссылка на докерхаб: https://hub.docker.com/u/keonik
+- Были пересобраны образы для reddit app
+- Был создан dockerfile и собран образ для prometheus
+- Файлы связанные с докером из прошлы домашек перенесены в папку [docker](./docker/)
+- docker-compose.yml обновлен - добавлен prometheus и node exporter для мониторинга системы и приложения

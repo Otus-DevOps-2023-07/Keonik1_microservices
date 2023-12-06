@@ -1,0 +1,79 @@
+version: '3.3'
+services:
+  post_db:
+    image: ${DB_IMAGE}
+    volumes:
+      # - ${DB_DATA_PATH}:/data/db
+      - post_db:/data/db
+    networks:
+      reddit_back:
+        aliases:
+          - post_db
+          - comment_db
+  ui:
+    build: ../src/ui
+    image: ${UI_IMAGE}
+    ports:
+      # - "${UI_EXTERNAL_PORT}:9292/tcp"
+      - "9292:9292"
+    networks:
+      reddit_front:
+        aliases:
+          - ui
+  post:
+    build: ../src/post-py
+    image: ${POST_IMAGE}
+    networks:
+      reddit_back:
+        aliases:
+          - post
+      reddit_front:
+        aliases:
+          - post
+  comment:
+    build: ../src/comment
+    image: ${COMMENT_IMAGE}
+    networks:
+      reddit_back:
+        aliases:
+          - comment
+      reddit_front:
+        aliases:
+          - comment
+  prometheus:
+    build: ../monitoring/prometheus
+    image: ${PROMETHEUS_IMAGE}
+    ports:
+      - '9090:9090'
+    volumes:
+      - "../monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - prometheus_data:/prometheus
+    command: # Передаем доп параметры в командной строке
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d' # Задаем время хранения метрик в 1 день
+    networks:
+      - reddit_back
+      - reddit_front
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      - reddit_back
+      - reddit_front
+
+networks:
+  reddit_front:
+  reddit_back:
+
+volumes:
+  post_db:
+  prometheus_data:
