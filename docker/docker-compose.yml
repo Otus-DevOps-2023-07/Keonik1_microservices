@@ -13,6 +13,13 @@ services:
   ui:
     build: ../src/ui
     image: ${UI_IMAGE}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
     ports:
       # - "${UI_EXTERNAL_PORT}:9292/tcp"
       - "9292:9292"
@@ -23,6 +30,13 @@ services:
   post:
     build: ../src/post-py
     image: ${POST_IMAGE}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
     networks:
       reddit_back:
         aliases:
@@ -33,6 +47,8 @@ services:
   comment:
     build: ../src/comment
     image: ${COMMENT_IMAGE}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
       reddit_back:
         aliases:
