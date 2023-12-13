@@ -72,3 +72,28 @@ cd ./docker
 docker compose -f ./docker-compose-logging.yml up -d
 docker compose -f ./docker-compose.yml up -d
 ```
+
+# ДЗ 19
+- Уставновлен kubernetes на двух нодах - одна мастер, другая рабочая с помощью `kubeadm`. 
+    - Установка производилась на debian 11 по официальной инструкции для deb систем.
+    - Помимо кубернетеса был установен еще cri-dockerd драйвер и докер
+- Добавлена директория `kubernetes/reddit`, которая содержит deployments файлы для запуска сервисов
+- В директорию `kubernetes` добавлен файл `calico`, для установки calico драйвера.
+    ```bash
+    cd kubernetes
+    kubectl apply -f calico.yaml
+    kubectl get nodes
+    ```
+
+# Запуск сервисов
+Зайти в директорию `kubernetes/reddit` и выполнить команды:
+```bash
+kubectl apply -f <deployment file>
+kubectl get pods
+kubectl get deployments.apps
+```
+# Остановка сервисов
+Для остановки сервисов зайти в директорию `kubernetes/reddit` и выполнить команды:
+```bash
+kubectl delete -f <deployment file>
+```
