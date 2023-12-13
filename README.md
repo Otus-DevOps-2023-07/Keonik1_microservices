@@ -85,14 +85,14 @@ docker compose -f ./docker-compose.yml up -d
     kubectl get nodes
     ```
 
-# Запуск сервисов
+## Запуск сервисов
 Зайти в директорию `kubernetes/reddit` и выполнить команды:
 ```bash
 kubectl apply -f <deployment file>
 kubectl get pods
 kubectl get deployments.apps
 ```
-# Остановка сервисов
+## Остановка сервисов
 Для остановки сервисов зайти в директорию `kubernetes/reddit` и выполнить команды:
 ```bash
 kubectl delete -f <deployment file>
