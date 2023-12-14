@@ -54,3 +54,21 @@ docker-compose up -d
 - Был создан dockerfile и собран образ для prometheus
 - Файлы связанные с докером из прошлы домашек перенесены в папку [docker](./docker/)
 - docker-compose.yml обновлен - добавлен prometheus и node exporter для мониторинга системы и приложения
+
+# ДЗ 18
+- Добавлен файл docker/docker-compose-logging.yml, который содержит сервисы для логирования, такие как fluentd, zipkin, elasticksearch, kibana
+- В сервисы post и ui в файле docker/docker-compose.yml добавлены опции логирования через fluentd и трасировки через zipkin
+- В директории logging/fluentd содержатся dockerfile для сборки fluentd и конфиг для работы fluentd
+Для сборки образов выполнить команды:
+```bash
+cd ./docker
+docker compose -f ./docker-compose.yml build
+docker compose -f ./docker-compose-logging.yml build
+```
+
+Для запуска выполнить команды:
+```bash
+cd ./docker
+docker compose -f ./docker-compose-logging.yml up -d
+docker compose -f ./docker-compose.yml up -d
+```
