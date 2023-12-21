@@ -97,3 +97,14 @@ kubectl get deployments.apps
 ```bash
 kubectl delete -f <deployment file>
 ```
+
+# ДЗ 20
+- Установлен minikube в облаке яндекса
+- Отдебажен проект для работы через kubernetes
+    - Добавлено взаимодейсвие между разными компонентами приложения через kubernetes services
+- Создан kubernetes кластер в яндексе
+- Задеплоино приложение в kubernetes кластер.
+
+Пример:
+
+![Application on cluster](./docs/reddit_app_on_k8s_cluster.png)
